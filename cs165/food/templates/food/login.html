@@ -1,0 +1,13 @@
+{% extends "food/food-home.html" %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <input name="username" placeholder="Username" type="text" />
+    </div>
+    <div>
+        <input name="password" placeholder="Password" type="password" />
+    </div>
+    <button type="submit">Login</button>
+</form>
+{% endblock %}

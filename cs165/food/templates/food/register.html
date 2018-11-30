@@ -1,0 +1,25 @@
+{% extends "food/food-home.html" %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        Username
+        <input name="username" placeholder="Username" type="text" />
+    </div>
+    <div>
+        Password
+        <input name="password1" placeholder="Password" type="password" />
+    </div>
+    <div>
+        Password confirmation
+        <input name="password2" placeholder="Password" type="password" />
+    </div>
+    <div>
+        <input name="is_owner" type="checkbox">
+        Are you an Owner?
+    </div>
+    <!-- {{form}} -->
+    
+    <button type="submit">Register</button>
+</form>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'food/food-home.html' %}
+
+{% block content %}
+{% if an_owner %}
+    <h3> You are an Owner </h3>
+{% else %}
+    <h3> You are a Customer </h3>
+{% endif %}
+{% endblock %}
