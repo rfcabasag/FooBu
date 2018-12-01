@@ -13,9 +13,17 @@
     
     <div class = "ui large menu" style = "background-color: #cc0000">
         <a class = "item" style = "color: #ffffff"><i class = "utensils icon"></i>FooBu</a>
-        <div class = "right menu">
-            <a class = "item" style = "color: #ffffff"><i class = "user icon"></i>My Profile</a>
-        </div>
+        {% if user.is_authenticated %}
+            <div class = "right menu">
+                <a class = "item" style = "color: #ffffff" href="{% url 'profile' %}"><i class = "user icon"></i>My Profile</a>
+                <a class = "item" style = "color: #ffffff" href="{% url 'logout' %}">Sign out</a>
+            </div>
+        {% else %}
+            <div class = "right menu">
+                <a class = "item" style = "color: #ffffff" href="{% url 'login' %}"><i class = "user icon"></i>Sign in</a>
+                <a class = "item" style = "color: #ffffff" href="{% url 'signup-as' %}">Sign up</a>
+            </div>
+        {% endif %}
     </div>
     {% block content %} {% endblock %}
 </body>

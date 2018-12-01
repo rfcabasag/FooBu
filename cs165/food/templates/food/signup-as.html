@@ -1,0 +1,16 @@
+{% extends 'food/base.html' %}
+{% block content %}
+    <div class="ui column very relaxed stackable centered container grid">
+        <div class="middle aligned column">
+            <a class="ui large button" href="{% url 'register-customer' %}">
+                <i class="signup icon"></i>
+                Sign Up As Costumer
+            </a>
+            <br><br>
+            <a class="ui large button" href="{% url 'register-owner' %}">
+                <i class="signup icon"></i>
+                Sign Up As Owner
+            </a>
+        </div>
+    </div>
+{% endblock %}

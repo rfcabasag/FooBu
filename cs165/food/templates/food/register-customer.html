@@ -1,0 +1,27 @@
+{% extends 'food/base.html' %}
+{% block content %}
+    <form class = "ui container segment" method="POST">
+        {% csrf_token %}
+        <h1>Sign Up</h1>
+        <div class = "ui form">
+            <div class = "field">
+                <label>Name</label>
+                <input type = "text" name = "username">
+            </div>
+            <div class = "field">
+                <label>Password</label>
+                <input type = "password" name = "password1">
+            </div>
+            <div class = "field">
+                <label>Confirm Password</label>
+                <input type = "password" name = "password2">
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+        </div>
+    </form>
+    <script>
+        $('.ui.dropdown')
+            .dropdown()
+        ;
+    </script>
+{% endblock %}
