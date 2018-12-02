@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import RegisteredUser, Establishment
 from django.contrib.auth.decorators import login_required
 
+@login_required
 def foodHome(request):
     return render(request,'food/food-home.html')
 
@@ -56,3 +57,6 @@ def profile(request):
     user_is_owner = RegisteredUser.objects.filter(user=user)[0].is_owner
 
     return render(request,'food/profile.html',{'an_owner':user_is_owner})
+def establishment(request,est_id):
+    Establishment.objects.filter(id=est_id)
+    return render(request,'food/establishment.html')

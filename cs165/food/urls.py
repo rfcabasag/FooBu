@@ -8,4 +8,5 @@ urlpatterns = [
     path('register-owner/', views.register_as_owner, name="register-owner"),
     path('register-customer/', views.register_as_customer, name="register-customer"),
     path('profile/', views.profile, name="profile"),
+    path('est-<int:est_id>/', views.establishment, name="establishment")
 ]
