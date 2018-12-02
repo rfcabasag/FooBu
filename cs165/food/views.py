@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import RegisteredUser, Establishment
 from django.contrib.auth.decorators import login_required
 
+@login_required
 def foodHome(request):
     return render(request,'food/food-home.html')
 
