@@ -7,17 +7,17 @@
             <h4 style="border-color: red">{{est.favorites}} Favorites</h4>
             <div class = "ui button" style="border-color: red"><i class = "heart icon"></i>Favorite</div>
             <div class = "ui button" style="border-color: gold"><i class = "star icon"></i>Rate</div>
-        </div>
         <br>
         <h3>{{est.desc}}</h3>
         <br>
         <h4>Located at: {{loc}}</h4>
         <br>
-        <h2>Menu
+        <h2>Menu 
+            &nbsp &nbsp
             <a href="{% url 'addfooditem' est_id=est.id%}">
-            <button class="ui button">
-                 <i class="plus icon"></i>
-                   Add   
+            <button class=" ui button">
+                <i class="plus icon"></i>
+                 Add     
             </button>
             </a>
         </h2>
@@ -34,12 +34,16 @@
                         <p> No Items Sold</p>
                     {% endif %}
                 </div>
-                <div class = "column">
+                <div class = "two wide column">
                     <h3>Price</h3>
                     {% if fooditems %}
-                        {% for item in fooditems%}
-                            <p>{{ item.price }}</p>
-                            <br>
+                        {% for item in fooditems%}                    
+                            {{ item.price }} 
+                            <div class="right floated ui small  basic icon buttons">
+                                <button class = "mini ui button"> <i class="edit icon"></i> </button>
+                                <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                            </div>
+                            <p><br></p>
                         {% endfor %}
                     {% else %}
                     {% endif %}
