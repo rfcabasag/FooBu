@@ -76,8 +76,9 @@ def establishment(request,est_id):
         rate = rate/raters
         
     favs = len(Favorites.objects.filter(est=x))
+    fooditems = FoodItem.objects.filter(est=x)
 
-    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner, 'favorite':favs, 'rate':rate})
+    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner, 'favorite':favs, 'rate':rate, 'fooditems':fooditems})
 
 @login_required
 def favorite(request,est_id):
@@ -98,3 +99,20 @@ def favorite(request,est_id):
         Favorites.objects.filter(cus=curr_owner,est=est)[0].delete()
     
     return redirect('establishment',est_id=est_id)
+    
+
+@login_required
+def addfooditem(request,est_id):
+    x = Establishment.objects.filter(id=est_id)[0]
+    if(request.method == 'POST'):
+        print("hallo")
+        d1 = request.POST['name']
+        d2 = request.POST['price']
+
+        newFoodItem = FoodItem(name=d1, price=d2, est = x)
+        newFoodItem.save()
+
+        return redirect('establishment', est_id = est_id)
+    else:
+       form = None
+    return render(request,'food/addfooditem.html')
