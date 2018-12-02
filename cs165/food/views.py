@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def foodHome(request):
-    return render(request,'food/food-home.html')
+    x = Establishment.objects.all()
+    return render(request,'food/food-home.html',{'est_list':x} )
 
 def register_as_owner(request):
     if(request.method == 'POST'):

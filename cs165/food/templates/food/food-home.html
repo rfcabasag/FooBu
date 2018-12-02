@@ -5,7 +5,7 @@
     <div class = "ui segments">
         {% if est_list %}
             {% for est in est_list %}
-                <a href="announcement/scholarship_post/{{ post.id }}" style="color:inherit; text-decoration: none">
+                <a href="{% url 'establishment' est_id=est.id %}" style="color:inherit; text-decoration: none">
                     <div class="ui segment">
                         <h3 style = "margin: 0; padding: 0">{{ est.name }}</h3>
                         <h4>{{ est.desc }}</h4>
