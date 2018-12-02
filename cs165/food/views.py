@@ -152,3 +152,20 @@ def addestablishment(request):
         form = None
 
     return render(request, 'food/addestablishment.html')
+
+@login_required
+def updateestablishment(request,est_id):
+    est = Establishment.objects.filter(id=est_id)[0]
+    if(request.method == 'POST'):
+        est.name = request.POST['est_name']
+        est.desc = request.POST['desc']
+        est.area = request.POST['area']
+        est.street = request.POST['street']
+
+        est.save()
+
+        return redirect('profile')       
+    else:
+        form = None
+
+    return render(request, 'food/addestablishment.html')

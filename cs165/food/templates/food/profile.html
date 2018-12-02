@@ -17,7 +17,9 @@
                         <font size="4">{{ e }}</font>
                         &nbsp &nbsp &nbsp 
                         <div class="ui small basic icon buttons">
-                            <button class = "mini ui button"> <i class="edit icon"></i> </button>
+                            <a href="{% url 'updateestablishment' est_id=e.id %}">
+                                <button class = "mini ui button"> <i class="edit icon"></i> </button>
+                            </a>
                             <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
                         </div>
                     </div>
