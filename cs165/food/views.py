@@ -57,6 +57,9 @@ def profile(request):
     user_is_owner = RegisteredUser.objects.filter(user=user)[0].is_owner
 
     return render(request,'food/profile.html',{'an_owner':user_is_owner})
+
+@login_required
 def establishment(request,est_id):
-    Establishment.objects.filter(id=est_id)
-    return render(request,'food/establishment.html')
+    x = Establishment.objects.filter(id=est_id)[0]
+    location = x.street + " " + x.area
+    return render(request,'food/establishment.html', {'est':x, 'loc':location})
