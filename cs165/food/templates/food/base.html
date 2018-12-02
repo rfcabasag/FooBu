@@ -12,7 +12,7 @@
 <body>
     
     <div class = "ui large menu" style = "background-color: #cc0000">
-        <a class = "item" style = "color: #ffffff"><i class = "utensils icon"></i>FooBu</a>
+        <a class = "item" style = "color: #ffffff" href="{% url 'food-home' %}"><i class = "utensils icon"></i>FooBu</a>
         {% if user.is_authenticated %}
             <div class = "right menu">
                 <a class = "item" style = "color: #ffffff" href="{% url 'profile' %}"><i class = "user icon"></i>My Profile</a>
