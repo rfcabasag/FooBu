@@ -1,0 +1,18 @@
+{% extends "food/base.html" %}
+{% block content %}
+	<div class = "ui container segment">
+		<h1>Add Food Item</h1>
+		<form class = "ui form" method="POST">
+			{% csrf_token %}
+			<div class = "field">
+                <label>Name</label>
+                <input type = "text" name='name'>
+            </div>
+            <div class = "field">
+                <label>Price</label>
+                <input type = "float" name='price'>
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+		</form>
+	</div>
+{% endblock %}

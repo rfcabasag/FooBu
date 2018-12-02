@@ -13,10 +13,17 @@
         <br>
         <h4>Located at: {{loc}}</h4>
         <br>
-        <h2>Menu</h2>
+        <h2>Menu
+            <a href="{% url 'addfooditem' est_id=est.id%}">
+            <button class="ui button">
+                 <i class="plus icon"></i>
+                   Add   
+            </button>
+            </a>
+        </h2>
         <div class = "container">
-            <div class = "two columns">
-                <div class = "column">
+            <div class = "ui two column divided grid">
+                <div class = "two wide column">
                     <h3>Food Item</h3>
                     {% if fooditems %}
                         {% for item in fooditems%}
@@ -28,7 +35,7 @@
                     {% endif %}
                 </div>
                 <div class = "column">
-                    <h3>Food Item</h3>
+                    <h3>Price</h3>
                     {% if fooditems %}
                         {% for item in fooditems%}
                             <p>{{ item.price }}</p>

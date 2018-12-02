@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import RegisteredUser, Establishment
+from .models import RegisteredUser, Establishment, FoodItem
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -63,4 +63,21 @@ def profile(request):
 def establishment(request,est_id):
     x = Establishment.objects.filter(id=est_id)[0]
     location = x.street + " " + x.area
-    return render(request,'food/establishment.html', {'est':x, 'loc':location})
+    fooditems = FoodItem.objects.filter(est=x)
+    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'fooditems':fooditems})
+
+@login_required
+def addfooditem(request,est_id):
+    x = Establishment.objects.filter(id=est_id)[0]
+    if(request.method == 'POST'):
+        print("hallo")
+        d1 = request.POST['name']
+        d2 = request.POST['price']
+
+        newFoodItem = FoodItem(name=d1, price=d2, est = x)
+        newFoodItem.save()
+
+        return redirect('establishment', est_id = est_id)
+    else:
+       form = None
+    return render(request,'food/addfooditem.html')
