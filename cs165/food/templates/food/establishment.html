@@ -46,8 +46,12 @@
                             {{ item.price }}
                             {% if owner and owns %}
                                 <div class="right floated ui small  basic icon buttons">
-                                    <button class = "mini ui button"> <i class="edit icon"></i> </button>
-                                    <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                                    <a href="{% url 'updatefooditem' est_id=est.id food_id=item.id %}">
+                                        <button class = "mini ui button"> <i class="edit icon"></i> </button>
+                                    </a>
+                                    <a href="{% url 'deletefooditem' est_id=est.id food_id=item.id %}">
+                                        <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                                    </a>
                                 </div>
                             {% endif %}
                             <pre><br></pre>

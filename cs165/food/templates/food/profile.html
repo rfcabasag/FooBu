@@ -20,7 +20,9 @@
                             <a href="{% url 'updateestablishment' est_id=e.id %}">
                                 <button class = "mini ui button"> <i class="edit icon"></i> </button>
                             </a>
-                            <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                            <a href="{% url 'deleteestablishment' est_id=e.id %}">
+                                <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                            </a>
                         </div>
                     </div>
                 </a>                

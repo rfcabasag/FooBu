@@ -134,6 +134,32 @@ def addfooditem(request,est_id):
     return render(request,'food/addfooditem.html')
 
 @login_required
+def updatefooditem(request,est_id,food_id):
+    est = Establishment.objects.filter(id=est_id)[0]
+    food = FoodItem.objects.filter(id=food_id)[0]
+
+    if(request.method == 'POST'):
+        food.name = request.POST['name']
+        food.price = request.POST['price']   
+
+        food.save()
+
+        return redirect('establishment', est_id = est_id) 
+    else:
+       form = None
+
+    return render(request,'food/addfooditem.html')
+
+@login_required
+def deletefooditem(request,est_id,food_id):
+    est = Establishment.objects.filter(id=est_id)[0]
+    food = FoodItem.objects.filter(id=food_id)
+    food.delete()
+
+    return redirect('establishment', est_id = est_id) 
+
+
+@login_required
 def addestablishment(request):
     user = request.user
     est_owner = RegisteredUser.objects.filter(user=user)[0]
@@ -169,3 +195,11 @@ def updateestablishment(request,est_id):
         form = None
 
     return render(request, 'food/addestablishment.html')
+
+
+@login_required
+def deleteestablishment(request,est_id):
+    est = Establishment.objects.filter(id=est_id)
+    est.delete()
+
+    return redirect('profile')  
