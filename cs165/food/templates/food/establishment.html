@@ -3,23 +3,28 @@
     <div class = "ui segment">
         <div class = "row">
             <h1>{{est.name}}</h1>
-            <h4 style="border-color: gold">{{est.rating}}</h4>
-            <h4 style="border-color: red">{{est.favorites}} Favorites</h4>
-            <div class = "ui button" style="border-color: red"><i class = "heart icon"></i>Favorite</div>
-            <div class = "ui button" style="border-color: gold"><i class = "star icon"></i>Rate</div>
+            {% if not owner%}
+                <h4 style="border-color: gold">Rating {{rate}}</h4>
+                <h4 style="border-color: red">Number of Favorites {{favorite}}</h4>
+                <a class = "ui button" style="border-color: red" href="{% url 'favorite' est_id=est.id %}"><i class = "heart icon"></i>Favorite</a>
+                <a class = "ui button" style="border-color: gold" href="#"><i class = "star icon"></i>Rate</a>
+            {% endif %}
+            
+        </div>
         <br>
-        <h3>{{est.desc}}</h3>
+        <h3>Description: {{est.desc}}</h3>
         <br>
         <h4>Located at: {{loc}}</h4>
         <br>
-        <h2>Menu 
-            &nbsp &nbsp
-            <a href="{% url 'addfooditem' est_id=est.id%}">
-            <button class=" ui button">
-                <i class="plus icon"></i>
-                 Add     
-            </button>
-            </a>
+        <h2>Menu
+            {% if owner and owns %}
+                <a href="{% url 'addfooditem' est_id=est.id%}">
+                <button class="ui button">
+                     <i class="plus icon"></i>
+                       Add   
+                </button>
+                </a>
+            {% endif %}
         </h2>
         <div class = "container">
             <div class = "ui two column divided grid">
@@ -34,19 +39,19 @@
                         <p> No Items Sold</p>
                     {% endif %}
                 </div>
-                <div class = "two wide column">
+                <div class = "column">
                     <h3>Price</h3>
                     {% if fooditems %}
-                        {% for item in fooditems%}                    
-                            {{ item.price }} 
-                            <div class="right floated ui small  basic icon buttons">
-                                <button class = "mini ui button"> <i class="edit icon"></i> </button>
-                                <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
-                            </div>
-                            <p><br></p>
+                        {% for item in fooditems%}
+                            <p>{{ item.price }}</p>
+                            <br>
                         {% endfor %}
                     {% else %}
                     {% endif %}
+                    <div class="right floated ui small  basic icon buttons">
+                            <button class = "mini ui button"> <i class="edit icon"></i> </button>
+                            <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                    </div>
                 </div>
             </div>
         </div>
