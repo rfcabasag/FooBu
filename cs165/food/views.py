@@ -121,7 +121,6 @@ def favorite(request,est_id):
 def addfooditem(request,est_id):
     x = Establishment.objects.filter(id=est_id)[0]
     if(request.method == 'POST'):
-        print("hallo")
         d1 = request.POST['name']
         d2 = request.POST['price']
 
@@ -131,4 +130,25 @@ def addfooditem(request,est_id):
         return redirect('establishment', est_id = est_id)
     else:
        form = None
+
     return render(request,'food/addfooditem.html')
+
+@login_required
+def addestablishment(request):
+    user = request.user
+    est_owner = RegisteredUser.objects.filter(user=user)[0]
+
+    if(request.method == 'POST'):
+        d1 = request.POST['est_name']
+        d2 = request.POST['desc']
+        d3 = request.POST['area']
+        d4 = request.POST['street']
+
+        newEstablishment = Establishment(owner=est_owner, name=d1, desc=d2, area=d3, street=d4)
+        newEstablishment.save() 
+        
+        return redirect('profile')       
+    else:
+        form = None
+
+    return render(request, 'food/addestablishment.html')

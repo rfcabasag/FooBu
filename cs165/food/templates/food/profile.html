@@ -3,20 +3,26 @@
 {% block content %}
 {% if an_owner %}
     <h1 align="center">{{ user }}</h1>
-    <h2 style="padding-left: 50px;">Owned Establishments</h2>
+    <h2 style="padding-left: 50px;"> Owned Establishments 
+        <a href="{% url 'addestablishment' %}"
+            <button class = "ui button"> <i class="plus icon"></i> Add </button>
+        </a>
+    </h2>
+
     <div class="ui centered container">
         <div class="ui segments container">
             {% for e in owned %}
                 <a href = "{% url 'establishment' est_id=e.id %}" style = "color: inherit; text-decoration: none">
                     <div class = "ui segment">
-                        <p>{{ e }}</p>
+                        <font size="4">{{ e }}</font>
+                        &nbsp &nbsp &nbsp 
+                        <div class="ui small basic icon buttons">
+                            <button class = "mini ui button"> <i class="edit icon"></i> </button>
+                            <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                        </div>
                     </div>
-                </a>
+                </a>                
             {% endfor %}
-        </div>
-        <div class="right floated ui small  basic icon buttons">
-            <button class = "mini ui button"> <i class="edit icon"></i> </button>
-            <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
         </div>
     </div>
 {% else %}
