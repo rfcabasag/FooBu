@@ -3,10 +3,12 @@
     <div class = "ui segment">
         <div class = "row">
             <h1>{{est.name}}</h1>
-            <h4 style="border-color: gold">{{est.rating}}</h4>
-            <h4 style="border-color: red">{{est.favorites}} Favorites</h4>
-            <div class = "ui button" style="border-color: red"><i class = "heart icon"></i>Favorite</div>
-            <div class = "ui button" style="border-color: gold"><i class = "star icon"></i>Rate</div>
+            {% if not owner%}
+                <h4 style="border-color: gold">{{est.rating}}</h4>
+                <h4 style="border-color: red">{{est.favorites}} Favorites</h4>
+                <div class = "ui button" style="border-color: red"><i class = "heart icon"></i>Favorite</div>
+                <div class = "ui button" style="border-color: gold"><i class = "star icon"></i>Rate</div>
+            {% endif %}
         </div>
         <br>
         <h3>{{est.desc}}</h3>

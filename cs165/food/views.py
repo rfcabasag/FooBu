@@ -62,4 +62,7 @@ def profile(request):
 def establishment(request,est_id):
     x = Establishment.objects.filter(id=est_id)[0]
     location = x.street + " " + x.area
-    return render(request,'food/establishment.html', {'est':x, 'loc':location})
+
+    user = request.user
+    is_owner = RegisteredUser.objects.filter(user=user)[0].is_owner
+    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner})
