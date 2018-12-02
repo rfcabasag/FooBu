@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import RegisteredUser, Establishment
+from .models import RegisteredUser, Establishment, FoodItem, Rates, Favorites
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -66,4 +67,34 @@ def establishment(request,est_id):
 
     user = request.user
     is_owner = RegisteredUser.objects.filter(user=user)[0].is_owner
-    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner})
+
+    raters = len(Rates.objects.filter(est=x))
+    rate = 0
+    if raters !=0:
+        for i in Rates.objects.filter(est=x):
+            rate = rate + i.rating
+        rate = rate/raters
+        
+    favs = len(Favorites.objects.filter(est=x))
+
+    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner, 'favorite':favs, 'rate':rate})
+
+@login_required
+def favorite(request,est_id):
+    user = request.user
+    curr_owner = RegisteredUser.objects.filter(user=user)[0]
+    is_owner = curr_owner.is_owner
+
+
+    if is_owner:
+        return redirect('food-home')
+
+    est = Establishment.objects.filter(id=est_id)[0]    
+    fav = len(Favorites.objects.filter(cus=curr_owner,est=est))
+    if fav==0:
+        newFav = Favorites(cus=curr_owner,est=est)
+        newFav.save()
+    else:
+        Favorites.objects.filter(cus=curr_owner,est=est)[0].delete()
+    
+    return redirect('establishment',est_id=est_id)

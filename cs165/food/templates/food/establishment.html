@@ -4,14 +4,15 @@
         <div class = "row">
             <h1>{{est.name}}</h1>
             {% if not owner%}
-                <h4 style="border-color: gold">{{est.rating}}</h4>
-                <h4 style="border-color: red">{{est.favorites}} Favorites</h4>
-                <div class = "ui button" style="border-color: red"><i class = "heart icon"></i>Favorite</div>
-                <div class = "ui button" style="border-color: gold"><i class = "star icon"></i>Rate</div>
+                <h4 style="border-color: gold">Rating {{rate}}</h4>
+                <h4 style="border-color: red">Number of Favorites {{favorite}}</h4>
+                <a class = "ui button" style="border-color: red" href="{% url 'favorite' est_id=est.id %}"><i class = "heart icon"></i>Favorite</a>
+                <a class = "ui button" style="border-color: gold" href="#"><i class = "star icon"></i>Rate</a>
             {% endif %}
+            
         </div>
         <br>
-        <h3>{{est.desc}}</h3>
+        <h3>Description: {{est.desc}}</h3>
         <br>
         <h4>Located at: {{loc}}</h4>
         <br>
