@@ -15,5 +15,8 @@ urlpatterns = [
     path('est-<int:est_id>/', views.establishment, name="establishment"),
     path('est-<int:est_id>/addfooditem/', views.addfooditem, name="addfooditem"),
     path('est-<int:est_id>/updatefooditem-<int:food_id>/', views.updatefooditem, name="updatefooditem"),
-    path('est-<int:est_id>/deletefooditem-<int:food_id>/', views.deletefooditem, name="deletefooditem")
+    path('est-<int:est_id>/deletefooditem-<int:food_id>/', views.deletefooditem, name="deletefooditem"), 
+    path('est-<int:est_id>/addrating/', views.addrating, name="addrating"), 
+    path('est-<int:est_id>/updaterating/', views.updaterating, name="updaterating"), 
+    path('est-<int:est_id>/deleterating/', views.deleterating, name="deleterating"), 
 ]

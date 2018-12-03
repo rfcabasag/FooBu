@@ -58,19 +58,15 @@ def profile(request):
     user = request.user
     user_is_owner = RegisteredUser.objects.filter(user=user)[0].is_owner
     favorites_list = Favorites.objects.select_related('cus').filter(cus__user=user)
-    rated_list = Favorites.objects.select_related('est', 'cus').filter(cus__user=user)
+    rated_list = Rates.objects.filter(cus__user=user)
     rates_list = []
 
     owned = Establishment.objects.filter(owner__user=user)
 
-    for r in rated_list:
-        raters = len(Rates.objects.filter(est=r.est))
-        rate = 0
-        if raters !=0:
-            for i in Rates.objects.filter(est=r.est):
-                rate = rate + i.rating
-            rate = rate/raters
-        rates_list.append(rate)
+    raters = len(Rates.objects.filter(cus__user=user))
+    if raters !=0:
+        for i in Rates.objects.filter(cus__user=user):
+            rates_list.append(i.rating)
 
     return render(request,'food/profile.html',{'an_owner':user_is_owner, 'favorites_list':favorites_list, 'rates_list':rates_list, 'user':user, 'rated_list':rated_list, 'owned':owned})
 
@@ -80,8 +76,12 @@ def establishment(request,est_id):
     location = x.street + " " + x.area
 
     user = request.user
+
     is_owner = RegisteredUser.objects.filter(user=user)[0].is_owner
     owns = (user == x.owner.user)
+
+    reg_user = RegisteredUser.objects.filter(user=user)
+    rated = Rates.objects.filter(cus=reg_user[0], est=x).exists()
     
 
     raters = len(Rates.objects.filter(est=x))
@@ -94,7 +94,7 @@ def establishment(request,est_id):
     favs = len(Favorites.objects.filter(est=x))
     fooditems = FoodItem.objects.filter(est=x)
 
-    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner, 'favorite':favs, 'rate':rate, 'fooditems':fooditems, 'owns':owns})
+    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner, 'favorite':favs, 'rate':rate, 'fooditems':fooditems, 'owns':owns, 'rated':rated})
 
 @login_required
 def favorite(request,est_id):
@@ -203,3 +203,40 @@ def deleteestablishment(request,est_id):
     est.delete()
 
     return redirect('profile')  
+
+@login_required
+def addrating(request, est_id):
+    est = Establishment.objects.filter(id=est_id)[0]
+    user = RegisteredUser.objects.filter(user=request.user)[0]
+    if(request.method == "POST"):
+        r1 = request.POST['rating_given']
+
+        newRating = Rates(rating = r1, cus = user, est = est)
+        newRating.save()
+
+        return redirect('establishment', est_id = est_id)
+    else:
+        form = None
+    return render(request, 'food/addrating.html', {'est': est})
+
+def updaterating(request, est_id):
+    user = RegisteredUser.objects.filter(user=request.user)[0]
+    est = Establishment.objects.filter(id=est_id)[0]
+    rat = Rates.objects.filter(cus = user, est = est)[0]
+
+    if(request.method == "POST"):
+        rat.rating = request.POST['rating_given']
+        rat.save()
+
+        return redirect('establishment', est_id = est_id)
+    else:
+        form = None
+    return render(request, 'food/addrating.html', {'est': est})
+
+def deleterating(request, est_id):
+    user = RegisteredUser.objects.filter(user=request.user)[0]
+    est = Establishment.objects.filter(id=est_id)[0]
+    rat = Rates.objects.filter(cus = user, est = est)
+    rat.delete()
+
+    return redirect('establishment', est_id = est_id)

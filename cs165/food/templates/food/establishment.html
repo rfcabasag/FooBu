@@ -7,7 +7,13 @@
                 <h4 style="border-color: gold">Rating: {{rate}}</h4>
                 <h4 style="border-color: red">Number of Favorites: {{favorite}}</h4>
                 <a class = "ui button" style="border-color: red" href="{% url 'favorite' est_id=est.id %}"><i class = "heart icon"></i>Favorite</a>
-                <a class = "ui button" style="border-color: gold" href="#"><i class = "star icon"></i>Rate</a>
+                {% if not rated %}
+                    <a class = "ui button" style="border-color: gold" href="{% url 'addrating' est_id=est.id %}"><i class = "star icon"></i>Rate</a>
+                {% else %}
+                    <a class = "ui button" style="border-color: gold" href="{% url 'updaterating' est_id=est.id %}"><i class = "edit icon"></i>Change Rating</a>
+                    <a class = "ui button" style="border-color: gold" href="{% url 'deleterating' est_id=est.id %}"><i class = "delete icon"></i>Delete Rating</a>
+                {% endif %}
+
             {% endif %}
             
         </div>
