@@ -1,7 +1,11 @@
 {% extends "food/base.html" %}
 {% block content %}
 	<div class = "ui container segment">
-		<h1>Add Food Item</h1>
+        {% if est %}
+		<h1>Edit Food Establishment</h1>
+        {% else %}
+        <h1>Add Food Establishment</h1>
+        {% endif %}
 		<form class = "ui form" method="POST">
 			{% csrf_token %}
 			 <div class = "field">
