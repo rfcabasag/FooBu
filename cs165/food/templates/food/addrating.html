@@ -6,7 +6,7 @@
         <div class = "ui form">
             <div class = "field">
                 <label>Rating</label>
-                <input type="number" name="rating_given" min="0.00" max="5.00">
+                <input type="number" name="rating_given" {% if rate %} value="{{rate}}" {% else %} value="0.00" {% endif %} min="0.00" max="5.00">
             </div>
             <button class="ui button" type="submit">Submit</button>
         </div>

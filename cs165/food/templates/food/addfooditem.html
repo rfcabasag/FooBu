@@ -6,11 +6,11 @@
 			{% csrf_token %}
 			<div class = "field">
                 <label>Name</label>
-                <input type = "text" name='name'>
+                <input type = "text" name='name' {% if food %} value = "{{food.name}}" {% endif %}>
             </div>
             <div class = "field">
                 <label>Price</label>
-                <input type = "float" name='price'>
+                <input type = "float" name='price' {% if food %} value = "{{food.price}}" {% endif %}>
             </div>
             <button class="ui button" type="submit">Submit</button>
 		</form>

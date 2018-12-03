@@ -152,7 +152,7 @@ def updatefooditem(request,est_id,food_id):
     else:
        form = None
 
-    return render(request,'food/addfooditem.html')
+    return render(request,'food/addfooditem.html', {'food':food})
 
 @login_required
 def deletefooditem(request,est_id,food_id):
@@ -198,7 +198,7 @@ def updateestablishment(request,est_id):
     else:
         form = None
 
-    return render(request, 'food/addestablishment.html')
+    return render(request, 'food/addestablishment.html', {'est':est})
 
 
 @login_required
@@ -241,7 +241,8 @@ def updaterating(request, est_id):
         return redirect('establishment', est_id = est_id)
     else:
         form = None
-    return render(request, 'food/addrating.html', {'est': est})
+    
+    return render(request, 'food/addrating.html', {'est': est, 'rate':rat.rating})
 
 def deleterating(request, est_id):
     user = RegisteredUser.objects.filter(user=request.user)[0]
