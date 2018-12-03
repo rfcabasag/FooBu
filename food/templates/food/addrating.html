@@ -1,0 +1,14 @@
+{% extends "food/base.html" %}
+{% block content %}
+    <h1>Rate {{est}}</h1>
+    <form class = "ui container segment" method="POST">
+        {% csrf_token %}
+        <div class = "ui form">
+            <div class = "field">
+                <label>Rating</label>
+                <input type="number" name="rating_given" {% if rate %} value="{{rate}}" {% else %} value="0.00" {% endif %} min="0.00" max="5.00">
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+        </div>
+    </form>
+{% endblock %}
