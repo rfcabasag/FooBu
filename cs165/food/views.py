@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def foodHome(request):
     x = Establishment.objects.all()
-    return render(request,'food/food-home.html',{'est_list':x} )
+    user = request.user
+    return render(request,'food/food-home.html',{'est_list':x, 'user':user} )
 
 def register_as_owner(request):
     if(request.method == 'POST'):
@@ -83,7 +84,7 @@ def establishment(request,est_id):
     reg_user = RegisteredUser.objects.filter(user=user)
     rated = Rates.objects.filter(cus=reg_user[0], est=x).exists()
     
-
+    faved = Favorites.objects.filter(cus=reg_user[0], est=x).exists()
     raters = len(Rates.objects.filter(est=x))
     rate = 0
     if raters !=0:
@@ -94,7 +95,7 @@ def establishment(request,est_id):
     favs = len(Favorites.objects.filter(est=x))
     fooditems = FoodItem.objects.filter(est=x)
 
-    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner, 'favorite':favs, 'rate':rate, 'fooditems':fooditems, 'owns':owns, 'rated':rated})
+    return render(request,'food/establishment.html', {'est':x, 'loc':location, 'owner':is_owner, 'favorite':favs, 'rate':rate, 'fooditems':fooditems, 'owns':owns, 'rated':rated, 'faved':faved})
 
 @login_required
 def favorite(request,est_id):
