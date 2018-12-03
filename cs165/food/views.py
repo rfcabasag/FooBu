@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 def foodHome(request):
     x = Establishment.objects.all()
     user = request.user
-    return render(request,'food/food-home.html',{'est_list':x, 'user':user} )
+    user_is_owner = RegisteredUser.objects.filter(user=user)[0].is_owner
+    return render(request,'food/food-home.html',{'est_list':x, 'user':user, 'user_is_owner':user_is_owner} )
 
 def register_as_owner(request):
     if(request.method == 'POST'):
