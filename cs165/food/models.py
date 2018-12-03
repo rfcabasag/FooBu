@@ -9,7 +9,7 @@ class RegisteredUser(models.Model):
 
 class Establishment(models.Model):
     id = models.AutoField(primary_key=True)
-    owner = models.OneToOneField(RegisteredUser,on_delete=models.CASCADE)
+    owner = models.ForeignKey(RegisteredUser,blank=False,on_delete=models.CASCADE)
     name = models.TextField(blank=True)
     desc = models.TextField(blank=True)
     area = models.TextField(blank=True)

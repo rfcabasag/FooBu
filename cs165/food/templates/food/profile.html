@@ -2,8 +2,89 @@
 
 {% block content %}
 {% if an_owner %}
-    <h3> You are an Owner </h3>
+    <h1 align="center">{{ user }}</h1>
+    <h2 style="padding-left: 50px;"> Owned Establishments 
+        <a href="{% url 'addestablishment' %}"
+            <button class = "ui button"> <i class="plus icon"></i> Add </button>
+        </a>
+    </h2>
+
+    <div class="ui centered container">
+        <div class="ui segments container">
+            {% for e in owned %}
+                <a href = "{% url 'establishment' est_id=e.id %}" style = "color: inherit; text-decoration: none">
+                    <div class = "ui segment">
+                        <font size="4">{{ e }}</font>
+                        &nbsp &nbsp &nbsp 
+                        <div class="ui small basic icon buttons">
+                            <a href="{% url 'updateestablishment' est_id=e.id %}">
+                                <button class = "mini ui button"> <i class="edit icon"></i> </button>
+                            </a>
+                            <a href="{% url 'deleteestablishment' est_id=e.id %}">
+                                <button class = "mini ui button"> <i class="trash alternate icon"></i> </button>
+                            </a>
+                        </div>
+                    </div>
+                </a>                
+            {% endfor %}
+        </div>
+    </div>
 {% else %}
-    <h3> You are a Customer </h3>
+    <h1 align="center">{{ user }}</h1>
+    <div class = "ui two column centered grid container">
+        <div class = "centered column">
+            <h2>Favorites</h2>
+            <div class = "ui segments" style = "border-color: #cc0000">
+                {% if favorites_list %}
+                    {% for fave in favorites_list %}
+                        <a href = "{% url 'establishment' est_id=fave.est.id %}" style = "color: inherit; text-decoration: none">
+                            <div class = "ui segment">
+                                <p>{{fave.est}}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <div class = "ui segment">
+                        <p>No favorites</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class = "centered column">
+            <h2>Ratings</h2>
+            <div class = "ui segments" style = "border-color: #cc0000">
+                {% if rated_list %}
+                    <div class = "ui segment">
+                        <div class = "ui two column relaxed grid">
+                            <div class = "column">
+                                <h4>Establishment</h4>
+                                {% for r in rated_list %}
+                                    <a href = "{% url 'establishment' est_id=r.est.id %}" style = "color: inherit; text-decoration: none">
+                                        <div class = "ui segment">
+                                            <p>{{r.est.name}}</p>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                            <div class = "column">
+                                <h4>Rating</h4>
+                                {% for rate in rates_list %}
+                                    <a style = "color: inherit; text-decoration: none">
+                                        <div class = "ui segment">
+                                            <p align = "right">{{rate}}</p>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class = "ui segment">
+                        <p>You have rated no one yet</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endif %}
 {% endblock %}
