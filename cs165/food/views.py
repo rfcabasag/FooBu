@@ -125,7 +125,10 @@ def addfooditem(request,est_id):
         d2 = request.POST['price']
 
         newFoodItem = FoodItem(name=d1, price=d2, est = x)
-        newFoodItem.save()
+        try:
+            newFoodItem.save()
+        except Exception as e:
+            print(e)
 
         return redirect('establishment', est_id = est_id)
     else:
@@ -141,9 +144,10 @@ def updatefooditem(request,est_id,food_id):
     if(request.method == 'POST'):
         food.name = request.POST['name']
         food.price = request.POST['price']   
-
-        food.save()
-
+        try:
+            food.save()
+        except Exception as e:
+            print(e)
         return redirect('establishment', est_id = est_id) 
     else:
        form = None
@@ -170,7 +174,7 @@ def addestablishment(request):
         d3 = request.POST['area']
         d4 = request.POST['street']
 
-        newEstablishment = Establishment(owner=est_owner, name=d1, desc=d2, area=d3, street=d4)
+        newEstablishment = Establishment(owner=est_owner, name=d1, desc=d2, area=d3, street=d4) 
         newEstablishment.save() 
         
         return redirect('profile')       
@@ -212,7 +216,10 @@ def addrating(request, est_id):
         r1 = request.POST['rating_given']
 
         newRating = Rates(rating = r1, cus = user, est = est)
-        newRating.save()
+        try:
+            newRating.save()
+        except Exception as e:
+            print(e)
 
         return redirect('establishment', est_id = est_id)
     else:
@@ -226,7 +233,10 @@ def updaterating(request, est_id):
 
     if(request.method == "POST"):
         rat.rating = request.POST['rating_given']
-        rat.save()
+        try:
+            rat.save()
+        except Exception as e:
+            print(e)
 
         return redirect('establishment', est_id = est_id)
     else:
